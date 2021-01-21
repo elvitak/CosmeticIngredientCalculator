@@ -87,7 +87,7 @@ function deleteRow(deleteBtn) {
 
 ensureEmptyRow();
 
-function onTotalBatchVolumeChange() {
+function onTotalAmountChange() {
   const allPercFields = document.querySelectorAll(
     "tr[name='ingrRow'] input[name='ingrPerc']"
   );
@@ -100,4 +100,4 @@ function onTotalBatchVolumeChange() {
 
 document
   .getElementById("totalAmount")
-  .addEventListener("input", onTotalBatchVolumeChange);
+  .addEventListener("input", onTotalAmountChange);
