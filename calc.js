@@ -42,6 +42,7 @@ function addEmptyRow() {
   const newRow = templateRow.cloneNode(true);
   newRow.removeAttribute("id");
   newRow.style.display = "";
+  newRow.setAttribute("name", "ingrRow");
 
   // Atrodam pogu jaunajā rindā.
   const deleteBtn = newRow.querySelector("button.btn-close");
@@ -85,3 +86,18 @@ function deleteRow(deleteBtn) {
 }
 
 ensureEmptyRow();
+
+function onTotalAmountChange() {
+  const allPercFields = document.querySelectorAll(
+    "tr[name='ingrRow'] input[name='ingrPerc']"
+  );
+  for (let i = 0; i < allPercFields.length; i++) {
+    calculateGrams(allPercFields[i]);
+  }
+}
+
+// Event Listeners
+
+document
+  .getElementById("totalAmount")
+  .addEventListener("input", onTotalAmountChange);
