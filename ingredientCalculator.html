@@ -14,7 +14,7 @@
     </div>
     <div>
         <label for="totalAmount">Total Batch Volume: </label>
-        <input id="totalAmount" type="number" min="1" placeholder="amount">
+        <input id="totalAmount" type="number" min="1" placeholder="amount" class="error">
         grams
     </div>
 
@@ -31,7 +31,7 @@
                 <tr>
                     <th>Ingredient</th>
                     <th>%</th>
-                    <th>Amount</th>
+                    <th>Amount, g</th>
                     <th>Price/kg</th>
                     <th>Action</th>
                 </tr>
@@ -44,10 +44,10 @@
                             min="0"
                             max="100"
                             placeholder="nn"
-                            oninput="calculateTotalPercentage(); calculateGrams(this);">%
+                            oninput="recalculateForm()">%
                     </td>
                     <td><input name="ingrGrams" type="text" disabled></td>
-                    <td><input type="number" min="0" placeholder="€"></span></td>
+                    <td><input name="ingrPrice" type="number" min="0" oninput="recalculateForm()" placeholder="€"></span></td>
                     <!--
                     Izsaucam deleteRow ar this.referenceToCurrentRow,
                     kurš tiks piešķirts pēc rindas noklonēšanas
@@ -60,13 +60,12 @@
                         </td>
                         <td id="totalPercentage">100%</td>
                         <td><input type="number" disabled></td>
-                        <td><input type="number" disabled></td>
+                        <td><input id="totalPrice" type="number" disabled placeholder="Total Price"></td>
                         <td>&nbsp;</td>
                     </tr>
                 </tfoot>
             </table>
             <div>
-                <button>Calculate</button>
                 <button>Clear all</button>
                 <button>Print</button>
             </div>

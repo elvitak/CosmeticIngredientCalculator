@@ -1,24 +1,3 @@
-function calculateTotalPercentage() {
-  const allIngrPerc = document.getElementsByName("ingrPerc");
-  let totalPercentage = 0;
-  for (let i = 0; i < allIngrPerc.length; i++) {
-    if (allIngrPerc[i].value !== "") {
-      totalPercentage += parseFloat(allIngrPerc[i].value);
-    }
-  }
-  document.getElementById("totalPercentage").innerText = totalPercentage + "%";
-}
-
-function calculateGrams(elIngrPerc) {
-  const elTotalAmount = document.getElementById("totalAmount");
-  const totalAmount = parseFloat(elTotalAmount.value);
-  const percentage = parseFloat(elIngrPerc.value);
-
-  const grams = (totalAmount * percentage) / 100;
-
-  elIngrPerc.referenceToGrams.value = grams;
-}
-
 function ensureEmptyRow() {
   if (!hasEmptyRow()) {
     addEmptyRow();
@@ -83,21 +62,43 @@ function deleteRow(deleteBtn) {
   const row = deleteBtn.referenceToCurrentRow;
   row.remove();
   ensureEmptyRow();
+  recalculateForm();
 }
 
-ensureEmptyRow();
+function recalculateForm() {
+  const fieldTotalAmount = document.getElementById("totalAmount");
+  const totalAmount = parseInt(fieldTotalAmount.value);
 
-function onTotalAmountChange() {
-  const allPercFields = document.querySelectorAll(
-    "tr[name='ingrRow'] input[name='ingrPerc']"
-  );
-  for (let i = 0; i < allPercFields.length; i++) {
-    calculateGrams(allPercFields[i]);
+  const ingrRows = document.querySelectorAll("tr[name='ingrRow']");
+  let totalPercentage = 0;
+  let totalPrice = 0;
+  for (let i = 0; i < ingrRows.length; i++) {
+    const row = ingrRows[i];
+    const percent = parseInt(row.querySelector("input[name='ingrPerc']").value);
+    totalPercentage += percent;
+    const gramsField = row.querySelector("input[name='ingrGrams']");
+    const grams = (totalAmount * percent) / 100;
+    gramsField.value = grams;
+    const ingrPrice = parseFloat(
+      row.querySelector("input[name='ingrPrice']").value
+    );
+    const cost = (grams / 1000) * ingrPrice;
+    if (!isNaN(cost)) {
+      totalPrice += cost;
+    }
   }
+
+  document.getElementById("totalPercentage").innerText = totalPercentage + "%";
+  document.getElementById("totalPrice").value = totalPrice;
+  console.log(document.getElementById("totalPrice"));
+  console.log(totalPrice);
 }
 
 // Event Listeners
 
 document
   .getElementById("totalAmount")
-  .addEventListener("input", onTotalAmountChange);
+  .addEventListener("input", recalculateForm);
+
+// on load
+ensureEmptyRow();
