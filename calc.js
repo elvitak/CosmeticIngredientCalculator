@@ -74,7 +74,9 @@ function recalculateForm() {
   let totalPrice = 0;
   for (let i = 0; i < ingrRows.length; i++) {
     const row = ingrRows[i];
-    const percent = parseInt(row.querySelector("input[name='ingrPerc']").value);
+    const percent = parseFloat(
+      row.querySelector("input[name='ingrPerc']").value
+    );
     totalPercentage += percent;
     const gramsField = row.querySelector("input[name='ingrGrams']");
     const grams = (totalAmount * percent) / 100;
@@ -89,9 +91,7 @@ function recalculateForm() {
   }
 
   document.getElementById("totalPercentage").innerText = totalPercentage + "%";
-  document.getElementById("totalPrice").value = totalPrice;
-  console.log(document.getElementById("totalPrice"));
-  console.log(totalPrice);
+  document.getElementById("totalPrice").value = totalPrice.toFixed(2);
 }
 
 // Event Listeners
