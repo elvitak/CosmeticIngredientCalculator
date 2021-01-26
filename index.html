@@ -11,6 +11,13 @@
         #templateRow {
             display: none;
         }
+
+        #notesAndInstructions {
+            width: 650px;
+            min-height: 250px;
+            border: 3px solid grey;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -84,20 +91,12 @@
                         <button type="button" id="print" class="btn btn-outline-dark">Print</button>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <span contenteditable="true">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                        type
-                        and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-                        the
-                        leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-                        1960s
-                        with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                        desktop
-                        publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </span>
+                <div class="mt-4">
+                    <label for="notesAndInstructions">
+                        <h5>Notes and Instructions:</h5>
+                    </label>
+                    <div id="notesAndInstructions" contenteditable="true" aria-multiline="true">
+                    </div>
                 </div>
             </div>
         </form>
