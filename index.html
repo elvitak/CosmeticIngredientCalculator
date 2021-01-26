@@ -57,11 +57,8 @@
                             <td><input name="ingrGrams" class="form-control" type="text" disabled></td>
                             <td><input name="ingrPrice" class="form-control" type="number" min="0"
                                     oninput="recalculateForm()" placeholder="€"></span></td>
-                            <!--
-                            Izsaucam deleteRow ar this.referenceToCurrentRow,
-                            kurš tiks piešķirts pēc rindas noklonēšanas
-                            -->
-                            <td><button class="btn-close" aria-label="Close" onclick="deleteRow(this)"></button></td>
+                            <td><button name="btnDeleteRow" class="btn-close" aria-label="Close"
+                                    onclick="deleteRow(this)"></button></td>
                         </tr>
                         <tfoot>
                             <tr>
@@ -82,7 +79,7 @@
                         </tfoot>
                     </table>
                     <div>
-                        <button>Clear all</button>
+                        <button id="clearAll">Clear all</button>
                         <button>Print</button>
                     </div>
                 </div>

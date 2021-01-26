@@ -74,6 +74,24 @@ function recalculateForm() {
   document.getElementById("totalPrice").value = totalPrice.toFixed(2);
 }
 
+function clearForm(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const allDeleteButtons = document.querySelectorAll("tr[name='ingrRow'] button[name='btnDeleteRow']");
+  for (let i = 0; i < allDeleteButtons.length; i++) {
+    deleteRow(allDeleteButtons[i]);
+  }
+
+
+  document.getElementById("recipeForm").reset();
+  const fieldTotalPercentage = document.getElementById("totalPercentage");
+  fieldTotalPercentage.classList.remove("is-invalid");
+
+  const fieldTotalAmount = document.getElementById("totalAmount");
+  fieldTotalAmount.classList.remove("is-invalid");
+}
+
 function fillPrice(fieldIngrName) {
   const ingrName = fieldIngrName.value;
   let selectedIngr = undefined;
@@ -100,9 +118,8 @@ function preloadIngrList() {
 
 // Event Listeners
 
-document
-  .getElementById("totalAmount")
-  .addEventListener("input", recalculateForm);
+document.getElementById("totalAmount").addEventListener("input", recalculateForm);
+document.getElementById("clearAll").addEventListener("click", clearForm);
 
 // on load
 ensureEmptyRow();
