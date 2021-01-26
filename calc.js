@@ -20,16 +20,20 @@ function addEmptyRow() {
   const templateRow = document.getElementById("templateRow");
   const newRow = templateRow.cloneNode(true);
   newRow.removeAttribute("id");
-  newRow.style.display = "";
   newRow.setAttribute("name", "ingrRow");
   templateRow.parentNode.insertBefore(newRow, templateRow);
 }
+function onDeleteBtnClick(deleteBtn, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  deleteRow(deleteBtn);
+  recalculateForm();
+}
 
 function deleteRow(deleteBtn) {
-  const row = deleteBtn.closest("tr[name='ingrRow']");
+  const row = deleteBtn.closest("*[name='ingrRow']");
   row.remove();
   ensureEmptyRow();
-  recalculateForm();
 }
 
 function recalculateForm() {
@@ -41,7 +45,7 @@ function recalculateForm() {
     fieldTotalAmount.classList.remove("is-invalid");
   }
 
-  const ingrRows = document.querySelectorAll("tr[name='ingrRow']");
+  const ingrRows = document.querySelectorAll("*[name='ingrRow']");
   let totalPercentage = 0;
   let totalPrice = 0;
   for (let i = 0; i < ingrRows.length; i++) {
@@ -78,9 +82,10 @@ function clearForm(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  const allDeleteButtons = document.querySelectorAll("tr[name='ingrRow'] button[name='btnDeleteRow']");
+  const allDeleteButtons = document.querySelectorAll("*[name='ingrRow'] button[name='btnDeleteRow']");
   for (let i = 0; i < allDeleteButtons.length; i++) {
     deleteRow(allDeleteButtons[i]);
+
   }
 
 
@@ -101,7 +106,7 @@ function fillPrice(fieldIngrName) {
     }
   }
   if (selectedIngr !== undefined) {
-    const row = fieldIngrName.closest("tr[name='ingrRow']");
+    const row = fieldIngrName.closest("*[name='ingrRow']");
     const fieldIngrPrice = row.querySelector("input[name='ingrPrice']");
     fieldIngrPrice.value = selectedIngr.price;
   }
@@ -116,10 +121,15 @@ function preloadIngrList() {
   });
 }
 
+function confirmationForClearAll() {
+  confirm("Are you sure?")
+}
+
 // Event Listeners
 
 document.getElementById("totalAmount").addEventListener("input", recalculateForm);
 document.getElementById("clearAll").addEventListener("click", clearForm);
+
 
 // on load
 ensureEmptyRow();
