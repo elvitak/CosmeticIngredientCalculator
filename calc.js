@@ -98,6 +98,9 @@ function clearForm(event) {
 }
 
 function fillPrice(fieldIngrName) {
+  const row = fieldIngrName.closest("*[name='ingrRow']");
+  row.classList.remove("d-print-none");
+
   const ingrName = fieldIngrName.value;
   let selectedIngr = undefined;
   for (let i = 0; i < INGREDIENT_DATA.length; i++) {
@@ -106,7 +109,6 @@ function fillPrice(fieldIngrName) {
     }
   }
   if (selectedIngr !== undefined) {
-    const row = fieldIngrName.closest("*[name='ingrRow']");
     const fieldIngrPrice = row.querySelector("input[name='ingrPrice']");
     fieldIngrPrice.value = selectedIngr.price;
   }
