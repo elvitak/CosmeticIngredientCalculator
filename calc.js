@@ -53,6 +53,9 @@ function recalculateForm() {
 
     const percent = parseFloat(row.querySelector("input[name='ingrPerc']").value);
     if (!isNaN(percent)) {
+      const fieldIngrPercPrint = row.querySelector("*[name='ingrPercPrint']");
+      fieldIngrPercPrint.innerText = `${percent}%`;
+
       totalPercentage += percent;
       if (!isNaN(totalAmount)) {
         const gramsField = row.querySelector("input[name='ingrGrams']");
@@ -82,19 +85,20 @@ function clearForm(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  const allDeleteButtons = document.querySelectorAll("*[name='ingrRow'] button[name='btnDeleteRow']");
-  for (let i = 0; i < allDeleteButtons.length; i++) {
-    deleteRow(allDeleteButtons[i]);
+  const confirmation = confirm("Are you sure?");
+  if (confirmation) {
+    const allDeleteButtons = document.querySelectorAll("*[name='ingrRow'] button[name='btnDeleteRow']");
+    for (let i = 0; i < allDeleteButtons.length; i++) {
+      deleteRow(allDeleteButtons[i]);
+    }
 
+    document.getElementById("recipeForm").reset();
+    const fieldTotalPercentage = document.getElementById("totalPercentage");
+    fieldTotalPercentage.classList.remove("is-invalid");
+
+    const fieldTotalAmount = document.getElementById("totalAmount");
+    fieldTotalAmount.classList.remove("is-invalid");
   }
-
-
-  document.getElementById("recipeForm").reset();
-  const fieldTotalPercentage = document.getElementById("totalPercentage");
-  fieldTotalPercentage.classList.remove("is-invalid");
-
-  const fieldTotalAmount = document.getElementById("totalAmount");
-  fieldTotalAmount.classList.remove("is-invalid");
 }
 
 function fillPrice(fieldIngrName) {
@@ -121,10 +125,6 @@ function preloadIngrList() {
     option.value = ingr.name;
     ingrDatalist.appendChild(option);
   });
-}
-
-function confirmationForClearAll() {
-  confirm("Are you sure?")
 }
 
 // Event Listeners
