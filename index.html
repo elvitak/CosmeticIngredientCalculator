@@ -38,13 +38,14 @@
                         oninput="ensureEmptyRow()" onchange="fillPrice(this); recalculateForm();" list="ingrList">
                 </div>
                 <div class="col-sm-2 p-1">
-                    <div class="input-group">
+                    <div class="input-group d-print-none">
                         <input name="ingrPerc" class="form-control" type="number" min="0" max="100" step=".01"
                             oninput="recalculateForm()" placeholder="nn">
                         <div class="input-group-append">
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
+                    <div name="ingrPercPrint" class="d-none form-control d-print-block"></div>
                 </div>
                 <div class="col-sm-2 p-1">
                     <input name="ingrGrams" class="form-control" type="text" disabled>

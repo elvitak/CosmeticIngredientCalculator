@@ -53,6 +53,9 @@ function recalculateForm() {
 
     const percent = parseFloat(row.querySelector("input[name='ingrPerc']").value);
     if (!isNaN(percent)) {
+      const fieldIngrPercPrint = row.querySelector("*[name='ingrPercPrint']");
+      fieldIngrPercPrint.innerText = `${percent}%`;
+
       totalPercentage += percent;
       if (!isNaN(totalAmount)) {
         const gramsField = row.querySelector("input[name='ingrGrams']");
